@@ -77,6 +77,25 @@ npm run build
 📸 Screenshots & UI Preview
 🏠 Home Page
 
+<img width="1902" height="908" alt="homepage" src="https://github.com/user-attachments/assets/83d4e0cc-4993-449d-a36c-a1855b489881" />
+
+🔐 Login & Register
+
+<img width="1902" height="915" alt="login" src="https://github.com/user-attachments/assets/b5171fbe-b99f-49ae-8f34-fe4576954ebb"
+<img width="1897" height="912" alt="Register" src="https://github.com/user-attachments/assets/2e4ca654-ac19-4d2e-bc17-e2a9edb27e72" />
+ />
+
+📊 Admin & User Dashboard
+
+<img width="1912" height="966" alt="userdash" src="https://github.com/user-attachments/assets/ac8ae72f-e37b-4a7a-9e92-ce4d4aa9c5cc" />
+
+
+<img width="1896" height="957" alt="admindash" src="https://github.com/user-attachments/assets/664122ec-8d3a-4308-99f7-ce3357eebef5" />
+
+🍬 Sweet Management
+
+<img width="1900" height="965" alt="addsweet" src="https://github.com/user-attachments/assets/d2f2adb8-829c-4a2e-a80b-049dfee9761f" />
+
 
 
 
