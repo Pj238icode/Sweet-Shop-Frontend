@@ -163,7 +163,7 @@ AI Tools Used
 Claude
 How I Used AI
 ```
-I used ChatGPT as a development assistant to:
+I used Claude as a development assistant to:
 
 Design Axios interceptors for token refresh
 
