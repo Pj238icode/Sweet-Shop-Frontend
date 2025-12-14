@@ -1,16 +1,185 @@
-# React + Vite
+🍰 Sweet Shop Management System – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive frontend application for the Sweet Shop Management System, built using React + Vite, styled with Tailwind CSS, and integrated with a secure Spring Boot backend using JWT-based authentication.
+The Sweet Shop Management System Frontend provides a user-friendly interface for browsing sweets, managing inventory, authenticating users, and accessing admin dashboards. It supports secure login, role-based access, real-time UI updates, and seamless communication with a cloud-hosted backend.
 
-Currently, two official plugins are available:
+The application is deployed on Netlify and communicates with a production backend hosted on Render.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🌍 Live Application
+🔗 Frontend (Netlify)
+```
+https://sweet-management.netlify.app/
+```
+🔗 Backend (Render)
+```
+https://sweet-shop-management-system-rfpg.onrender.com
+```
 
-## React Compiler
+🚀 Tech Stack
+```
+React (Vite)
+JavaScript (ES6+)
+Tailwind CSS
+Axios
+React Router DOM
+JWT Authentication
+Netlify (Deployment)
+```
+🎯 Core Features
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+User Registration & Login
 
-## Expanding the ESLint configuration
+```
+JWT Authentication with Refresh Token Handling
+Role-based UI (Admin / User)
+Sweet Listing & Search
+Admin Dashboard Access
+Inventory Purchase Flow
+Responsive Navbar & Mobile Menu
+Protected Routes
+Automatic Token Refresh via Axios Interceptors
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔐 Authentication Flow
+
+Access token stored in localStorage
+Refresh token handled automatically via Axios interceptors
+On token expiration:
+Refresh token API is called
+New access token is stored
+Failed requests are retried
+Automatic logout on refresh failure
+
+⚙️ Environment Configuration
+
+The frontend uses Vite environment variables.
+
+Required Environment Variable (Production)
+```
+VITE_API_BASE_URL=https://sweet-shop-management-system-rfpg.onrender.com
+```
+Local Development (.env)
+```
+VITE_API_BASE_URL=http://localhost:8081
+```
+🧪 Running Locally
+```
+npm install
+npm run dev
+
+```
+Build for production:
+```
+npm run build
+
+```
+
+📸 Screenshots & UI Preview
+🏠 Home Page
+
+
+
+
+
+
+
+
+
+
+
+
+
+📁 Project Structure
+```
+src/
+├── api/
+│   └── axios.js
+│
+├── components/
+│   ├── admin/
+│   │   └── (admin-specific components)
+│   │
+│   ├── auth/
+│   │   └── (login, register, auth-related UI)
+│   │
+│   ├── dashboard/
+│   │   └── (dashboard widgets and stats)
+│   │
+│   ├── home/
+│   │   └── (landing page sections)
+│   │
+│   ├── layout/
+│   │   └── navbar/
+│   │       ├── Navbar.jsx
+│   │       ├── DesktopLinks.jsx
+│   │       └── MobileMenu.jsx
+│   │
+│   ├── modals/
+│   │   └── (modal components)
+│   │
+│   ├── sweets/
+│   │   └── (sweet listing, cards, forms)
+│   │
+│   └── ui/
+│       └── (reusable UI components)
+│
+├── hooks/
+│   └── useAuth.js
+│
+├── pages/
+│   └── (route-level pages)
+│
+├── routes/
+│   └── ProtectedRoutes.jsx
+│
+├── App.jsx
+└── main.jsx
+
+
+```
+🤖 My AI Usage
+AI Tools Used
+
+Claude
+How I Used AI
+```
+I used ChatGPT as a development assistant to:
+
+Design Axios interceptors for token refresh
+
+Debug authentication and CORS-related issues
+
+Improve component structure and naming
+
+Validate Netlify deployment configuration
+
+Refine README documentation and commit messages
+
+Design beautiful tailwind templates
+
+All generated suggestions were reviewed, modified, and implemented manually.
+```
+
+Reflection on AI Impact
+
+```
+AI helped speed up development and reduce debugging time, especially for authentication flows and deployment issues. However, I ensured that I fully understood and controlled all logic, treating AI as a supporting tool rather than a replacement for problem-solving.
+```
+
+📌 Future Enhancements
+```
+HTTP-only cookie authentication
+
+Pagination & filters
+
+Skeleton loaders
+
+Dark mode
+
+Improved accessibility (ARIA)
+```
+
+
+
+
+
