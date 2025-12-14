@@ -1,10 +1,12 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8081/api",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
 });
 
-//REQUEST INTERCEPTOR 
+// =======================
+// REQUEST INTERCEPTOR
+// =======================
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -18,14 +20,15 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-//RESPONSE INTERCEPTOR
+// =======================
+// RESPONSE INTERCEPTOR
+// =======================
 let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => {
-    if (error) prom.reject(error);
-    else prom.resolve(token);
+    error ? prom.reject(error) : prom.resolve(token);
   });
   failedQueue = [];
 };
@@ -36,14 +39,17 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // If access token expired
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retry
-    ) {
-      const refreshToken = localStorage.getItem("refreshToken");
+    // ⛔ Prevent infinite loop
+    if (originalRequest.url.includes("/auth/refresh")) {
+      logoutAndRedirect();
+      return Promise.reject(error);
+    }
 
-      if (!refreshToken) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      const refreshToken = localStorage.getItem("refreshToken");
+      const email = localStorage.getItem("email");
+
+      if (!refreshToken || !email) {
         logoutAndRedirect();
         return Promise.reject(error);
       }
@@ -62,18 +68,23 @@ api.interceptors.response.use(
 
       try {
         const res = await axios.post(
-          "http://localhost:8081/api/auth/refresh",
-          { refreshToken }
+          `${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh`,
+          { refreshToken, email }
         );
 
-        const { token: newToken, refreshToken: newRefresh } =
-          res.data.data;
+        const {
+          accessToken,
+          refreshToken: newRefreshToken,
+        } = res.data.data;
 
-        localStorage.setItem("token", newToken);
-        localStorage.setItem("refreshToken", newRefresh);
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("refreshToken", newRefreshToken);
 
-        api.defaults.headers.Authorization = `Bearer ${newToken}`;
-        processQueue(null, newToken);
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+
+        processQueue(null, accessToken);
 
         return api(originalRequest);
       } catch (err) {
@@ -89,7 +100,9 @@ api.interceptors.response.use(
   }
 );
 
-//LOGOUT HANDLER
+// =======================
+// LOGOUT
+// =======================
 const logoutAndRedirect = () => {
   localStorage.clear();
   window.location.href = "/login";
