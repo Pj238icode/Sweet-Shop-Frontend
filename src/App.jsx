@@ -1,32 +1,39 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/layout/navbar/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoutes from "./ProtectedRoutes";
-import { Toaster } from "react-hot-toast";
 import AddSweetPage from "./pages/AddSweetPage";
-import NotFound from "./pages/NotFound";
-
+import ProtectedRoutes from "./routes/ProtectedRoutes";
+import NotFound from "./routes/NotFound";
+import { Toaster } from "react-hot-toast";
 
 function App() {
+  const location = useLocation();
+
+  // Pages where Navbar should NOT appear
+  const hideNavbarRoutes = ["/login", "/register"];
+
+  const shouldShowNavbar =
+    !hideNavbarRoutes.includes(location.pathname);
+
   return (
     <>
-      {/* Toast Container */}
+      {/* Toast */}
       <Toaster position="top-center" reverseOrder={false} />
 
       {/* Navbar */}
-      <Navbar />
+      <Navbar/>
 
       {/* Routes */}
       <Routes>
-        {/* Public Routes */}
+        {/* Public */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Routes */}
+        {/* Protected */}
         <Route
           path="/dashboard"
           element={
@@ -35,6 +42,8 @@ function App() {
             </ProtectedRoutes>
           }
         />
+
+        {/* Admin Only */}
         <Route
           path="/dashboard/add-sweet"
           element={
@@ -43,7 +52,9 @@ function App() {
             </ProtectedRoutes>
           }
         />
-         <Route path="*" element={<NotFound />} />
+
+        {/* Fallback */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
