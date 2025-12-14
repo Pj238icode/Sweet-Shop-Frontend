@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FiLogOut, FiGrid } from "react-icons/fi";
 import { useAuth } from "../../../hooks/useAuth";
 import Logo from "./Logo";
-import DesktopLinks from "./Desktoplinks";
+import DesktopLinks from "./DesktopLinks";
 import AuthButtons from "./AuthButtons";
 import MobileMenu from "./MobileMenu";
 import MenuToggle from "./MenuToggle";
